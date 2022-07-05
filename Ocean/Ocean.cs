@@ -32,7 +32,7 @@ namespace OceanGame
             {
                 case GameSettings.ObstacleImage:
                     _stats.obstacles++;
-                    return new Obstacle();
+                    return Globals.obstacleSingle;
                 case GameSettings.PredatorImage:
                     _stats.predators++;
                     return new Predator();
@@ -56,16 +56,16 @@ namespace OceanGame
                 }
             }
         }
-        private bool isOutOfBorder(int x, int y)
+        private bool IsOutOfBorder(int x, int y)
         {
             return x >= _width || y >= _height || x < 0 || y < 0;
         }
 
-        public Cell GetCellOrNull(int x, int y)
+        public Cell GetCell(int x, int y)
         {
-            if (isOutOfBorder(x, y))
+            if (IsOutOfBorder(x, y))
             {
-                return null;
+                return Globals.obstacleSingle;
             }
 
             return _cells[y, x];
@@ -73,7 +73,7 @@ namespace OceanGame
 
         public void SetCellOrNothing(int x, int y, Cell cell)
         {
-            if (!isOutOfBorder(x, y))
+            if (!IsOutOfBorder(x, y))
             {
                 _cells[y, x] = cell;
             }
