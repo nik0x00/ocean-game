@@ -124,9 +124,7 @@ namespace OceanGame
             {
                 _stats.NextCycle();
 
-                _interface.DisplayField(_cells);
-                _interface.DisplayStats(_stats);
-                _interface.DisplayLegend();
+                _interface.Display(_cells, _stats);
 
                 Process();
 

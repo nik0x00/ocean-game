@@ -8,6 +8,26 @@ namespace OceanGame
 {
     public class OceanTextInterface : IOceanInterface
     {
+        private int lastCursorYField = 0;
+        private int lastCursorYLegend = 0;
+        private int lastCursorYStats = 0;
+        private bool firstDisplayed = true;
+
+        public OceanTextInterface()
+        {
+            Console.Clear();
+        }
+
+        private bool IsFirstDisplayed()
+        {
+            if (firstDisplayed)
+            {
+                firstDisplayed = false;
+                return true;
+            } 
+            return false;
+        }
+
         private void DisplayHorizontalBorders(int length)
         {
             Console.Write("+");
@@ -17,9 +37,14 @@ namespace OceanGame
             }
             Console.Write("+\n");
         }
-        public void DisplayField(in Cell[,] field)
+        private void DisplayField(in Cell[,] field)
         {
-            Console.Clear();
+            if (lastCursorYField > 0 || IsFirstDisplayed())
+            {
+                Console.SetCursorPosition(0, lastCursorYField);
+            }
+            lastCursorYField = Console.GetCursorPosition().Top;
+
             DisplayHorizontalBorders(field.GetLength(1));
 
             for (int i = 0; i < field.GetLength(0); i++)
@@ -36,8 +61,14 @@ namespace OceanGame
             DisplayHorizontalBorders(field.GetLength(1));
         }
 
-        public void DisplayLegend()
+        private void DisplayLegend()
         {
+            if (lastCursorYLegend > 0 || IsFirstDisplayed())
+            {
+                Console.SetCursorPosition(0, lastCursorYLegend);
+            }
+            lastCursorYLegend = Console.GetCursorPosition().Top;
+
             Console.WriteLine("Map Legend");
             Console.WriteLine($"{GameSettings.VoidImage} Empty Cell");
             Console.WriteLine($"{GameSettings.ObstacleImage} Obstacle");
@@ -45,13 +76,28 @@ namespace OceanGame
             Console.WriteLine($"{GameSettings.PredatorImage} Predator");
         }
 
-        public void DisplayStats(in GameStats stats)
+        private void DisplayStats(in GameStats stats)
         {
+            if (lastCursorYStats > 0 || IsFirstDisplayed())
+            {
+                Console.SetCursorPosition(0, lastCursorYStats);
+            }
+            lastCursorYStats = Console.GetCursorPosition().Top;
+
             Console.WriteLine("Map Stats");
             Console.WriteLine($"Cycle:     {stats.cycle}");
             Console.WriteLine($"Predators: {stats.predators}");
             Console.WriteLine($"Prey:      {stats.prey}");
             Console.WriteLine($"Obstacles: {stats.obstacles}");
+        }
+
+        public void Display(in Cell[,] field, in GameStats stats)
+        {
+            firstDisplayed = true;
+
+            DisplayLegend();
+            DisplayField(field);
+            DisplayStats(stats);
         }
     }
 }

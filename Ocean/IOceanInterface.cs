@@ -8,8 +8,6 @@ namespace OceanGame
 {
     public interface IOceanInterface
     {
-        public void DisplayField(in Cell[,] field);
-        public void DisplayStats(in GameStats stats);
-        public void DisplayLegend();
+        public void Display(in Cell[,] field, in GameStats stats);
     }
 }
