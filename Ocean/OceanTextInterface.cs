@@ -13,8 +13,9 @@ namespace OceanGame
         private int lastCursorYStats = 0;
         private bool firstDisplayed = true;
 
-        public OceanTextInterface()
+        public OceanTextInterface(int width, int height)
         {
+            Console.SetWindowSize(width, height);
             Console.Clear();
         }
 
