@@ -86,10 +86,10 @@ namespace OceanGame
             lastCursorYStats = Console.GetCursorPosition().Top;
 
             Console.WriteLine("Map Stats");
-            Console.WriteLine($"Cycle:     {stats.cycle}");
-            Console.WriteLine($"Predators: {stats.predators}");
-            Console.WriteLine($"Prey:      {stats.prey}");
-            Console.WriteLine($"Obstacles: {stats.obstacles}");
+            Console.WriteLine($"Cycle:     {stats.cycle}    ");
+            Console.WriteLine($"Predators: {stats.predators}    ");
+            Console.WriteLine($"Prey:      {stats.prey}    ");
+            Console.WriteLine($"Obstacles: {stats.obstacles}    ");
         }
 
         public void Display(in Cell[,] field, in GameStats stats)
