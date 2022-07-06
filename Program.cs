@@ -25,8 +25,8 @@ namespace OceanGame
 
             Console.ReadKey();
 
-            var oceanInterface = new OceanTextInterface(GameSettings.OceanWidth + 10, GameSettings.OceanHeight + 16);
-            Ocean ocean = new Ocean(GameSettings.OceanWidth, GameSettings.OceanHeight, oceanInterface);
+            var oceanInterface = new OceanTextInterface(GameSettings.OceanWidth, GameSettings.OceanHeight);
+            Ocean ocean = new Ocean(oceanInterface);
             ocean.Run(GameSettings.GameCycles);
         }
     }

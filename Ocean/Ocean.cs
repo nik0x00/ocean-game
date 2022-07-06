@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 
 namespace OceanGame
 {
-    public class Ocean
+    public class Ocean : IOceanCell
     {
         private IOceanInterface _interface;
 
@@ -15,10 +14,10 @@ namespace OceanGame
 
         private GameStats _stats;
 
-        public Ocean(int width, int height, IOceanInterface oceanInterface)
+        public Ocean(IOceanInterface oceanInterface)
         {
-            _width = width;
-            _height = height;
+            _width = oceanInterface.oceanWidth;
+            _height = oceanInterface.oceanHeight;
             _interface = oceanInterface;
 
             _stats.Reset();

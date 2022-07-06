@@ -1,34 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OceanGame
 {
     public class OceanTextInterface : IOceanInterface
     {
-        private int lastCursorYField = 0;
-        private int lastCursorYLegend = 0;
-        private int lastCursorYStats = 0;
-        private bool firstDisplayed = true;
+        private int currentCursorY = 0;
 
+        private Cell[,] prevFieldState = null;
+        private bool isBordersPrinted = false;
+
+        public int oceanWidth { get; }
+        public int oceanHeight { get; }
         public OceanTextInterface(int width, int height)
         {
-            Console.SetWindowSize(width, height);
+            oceanWidth = width;
+            oceanHeight = height;
+            prevFieldState = new Cell[height, width];
+            Console.SetWindowSize(width + 10, height + 16);
             Console.Clear();
         }
-
-        private bool IsFirstDisplayed()
-        {
-            if (firstDisplayed)
-            {
-                firstDisplayed = false;
-                return true;
-            } 
-            return false;
-        }
-
         private void DisplayHorizontalBorders(int length)
         {
             Console.Write("+");
@@ -38,38 +28,52 @@ namespace OceanGame
             }
             Console.Write("+\n");
         }
+        private void PrintBorder()
+        {
+            DisplayHorizontalBorders(oceanWidth);
+            for (int i = 0; i < oceanHeight; i++)
+            {
+                Console.Write('|');
+                for (int j = 0; j < oceanWidth; j++)
+                {
+                    Console.Write(' ');
+                }
+                Console.Write("|\n");
+            }
+            DisplayHorizontalBorders(oceanWidth);
+        }
+        private void SetCell(int x, int y, Cell cell)
+        {
+            Console.SetCursorPosition(x + 1, currentCursorY + y + 1);
+            Console.Write(cell.image);
+        }
         private void DisplayField(in Cell[,] field)
         {
-            if (lastCursorYField > 0 || IsFirstDisplayed())
+            currentCursorY = Console.GetCursorPosition().Top;
+
+            if (!isBordersPrinted)
             {
-                Console.SetCursorPosition(0, lastCursorYField);
+                PrintBorder();
+                isBordersPrinted = true;
             }
-            lastCursorYField = Console.GetCursorPosition().Top;
 
-            DisplayHorizontalBorders(field.GetLength(1));
-
-            for (int i = 0; i < field.GetLength(0); i++)
+            for (int i = 0; i < oceanHeight; i++)
             {
-                Console.Write('|');
-                for (int j = 0; j < field.GetLength(1); j++)
+                for (int j = 0; j < oceanWidth; j++)
                 {
-                    Console.Write(field[i, j].image);
+                    if (prevFieldState[i, j] == null || prevFieldState[i, j].uid != field[i, j].uid)
+                    {        
+                        SetCell(j, i, field[i, j]);
+                    }
+                    prevFieldState[i, j] = field[i, j];
                 }
-                Console.Write('|');
-                Console.Write("\n");
             }
 
-            DisplayHorizontalBorders(field.GetLength(1));
+            Console.SetCursorPosition(0, currentCursorY + oceanHeight + 2);
         }
 
         private void DisplayLegend()
         {
-            if (lastCursorYLegend > 0 || IsFirstDisplayed())
-            {
-                Console.SetCursorPosition(0, lastCursorYLegend);
-            }
-            lastCursorYLegend = Console.GetCursorPosition().Top;
-
             Console.WriteLine("Map Legend");
             Console.WriteLine($"{GameSettings.VoidImage} Empty Cell");
             Console.WriteLine($"{GameSettings.ObstacleImage} Obstacle");
@@ -79,12 +83,6 @@ namespace OceanGame
 
         private void DisplayStats(in GameStats stats)
         {
-            if (lastCursorYStats > 0 || IsFirstDisplayed())
-            {
-                Console.SetCursorPosition(0, lastCursorYStats);
-            }
-            lastCursorYStats = Console.GetCursorPosition().Top;
-
             Console.WriteLine("Map Stats");
             Console.WriteLine($"Cycle:     {stats.cycle}    ");
             Console.WriteLine($"Predators: {stats.predators}    ");
@@ -94,11 +92,10 @@ namespace OceanGame
 
         public void Display(in Cell[,] field, in GameStats stats)
         {
-            firstDisplayed = true;
-
             DisplayLegend();
             DisplayField(field);
             DisplayStats(stats);
+            Console.SetCursorPosition(0, 0);
         }
     }
 }

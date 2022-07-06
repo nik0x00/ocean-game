@@ -6,7 +6,7 @@
         protected override int defaultTimeToReproduce { get; } = GameSettings.PredatorTimeToReproduce;
         private int timeToFeed = GameSettings.PredatorTimeToFeed;
 
-        public override void Process(int x, int y, Ocean ocean)
+        public override void Process(int x, int y, IOceanCell ocean)
         {
             if (timeToFeed <= 0)
             {

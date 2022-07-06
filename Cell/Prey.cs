@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OceanGame
+﻿namespace OceanGame
 {
     public class Prey : Cell
     {
@@ -20,7 +14,7 @@ namespace OceanGame
         {
             timeToReproduce = Globals.gameRandom.Next(defaultTimeToReproduce) + (defaultTimeToReproduce / 2);
         }
-        public override void Process(int x, int y, Ocean ocean)
+        public override void Process(int x, int y, IOceanCell ocean)
         {
             DirectionTools.DirectionRandomIterate((int nx, int ny) =>
             {

@@ -4,7 +4,7 @@
     {
         public int uid { get; } = Globals.gameUIDGenerator.Generate();
         public virtual char image { get; } = GameSettings.VoidImage;
-        public virtual void Process(int x, int y, Ocean ocean)
+        public virtual void Process(int x, int y, IOceanCell ocean)
         {
 
         }
