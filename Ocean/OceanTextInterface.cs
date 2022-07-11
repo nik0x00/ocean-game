@@ -9,15 +9,15 @@ namespace OceanGame
         private Cell[,] prevFieldState = null;
         private bool isBordersPrinted = false;
 
+        private int baseOffset;
         public int oceanWidth { get; }
         public int oceanHeight { get; }
-        public OceanTextInterface(int width, int height)
+        public OceanTextInterface(int width, int height, int offset = 0)
         {
             oceanWidth = width;
             oceanHeight = height;
+            baseOffset = offset;
             prevFieldState = new Cell[height, width];
-            Console.SetWindowSize(width + 10, height + 16);
-            Console.Clear();
         }
         private void DisplayHorizontalBorders(int length)
         {
@@ -92,10 +92,10 @@ namespace OceanGame
 
         public void Display(in Cell[,] field, in GameStats stats)
         {
+            Console.SetCursorPosition(0, baseOffset);
             DisplayLegend();
             DisplayField(field);
             DisplayStats(stats);
-            Console.SetCursorPosition(0, 0);
         }
     }
 }

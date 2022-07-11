@@ -116,19 +116,23 @@ namespace OceanGame
                 }
             }
         }
+        public void Step()
+        {
+            _stats.NextCycle();
 
+            _interface.Display(_cells, _stats);
+
+            Process();
+        }
         public void Run(int cycles)
         {
             for(int i = 0; i < cycles; i++)
             {
-                _stats.NextCycle();
-
-                _interface.Display(_cells, _stats);
-
-                Process();
+                Step();
 
                 Thread.Sleep(GameSettings.CycleInterval);
             }
         }
+
     }
 }

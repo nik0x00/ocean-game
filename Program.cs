@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Threading;
 namespace OceanGame
 {
     internal class Program
@@ -23,7 +23,11 @@ namespace OceanGame
             Console.WriteLine($"Predator feed:      {GameSettings.PredatorTimeToFeed}");
             Console.WriteLine($"Prey reproduce:     {GameSettings.PreyTimeToReproduce}");
 
+
             Console.ReadKey();
+            Console.Clear();
+            Console.SetWindowSize(GameSettings.OceanWidth + 10, GameSettings.OceanHeight + 16);
+
 
             var oceanInterface = new OceanTextInterface(GameSettings.OceanWidth, GameSettings.OceanHeight);
             Ocean ocean = new Ocean(oceanInterface);
