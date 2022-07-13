@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading;
+using System.Runtime.InteropServices;
+
 namespace OceanGame
 {
     internal class Program
@@ -31,7 +33,57 @@ namespace OceanGame
 
             var oceanInterface = new OceanTextInterface(GameSettings.OceanWidth, GameSettings.OceanHeight);
             Ocean ocean = new Ocean(oceanInterface);
-            ocean.Run(GameSettings.GameCycles);
+
+
+            int i = 0;
+            bool simulationActive = true;
+            while (i < GameSettings.GameCycles)
+            {
+                if (Console.KeyAvailable)
+                {
+                    var key = Console.ReadKey(true);
+                    if (key.Key == ConsoleKey.P)
+                    {
+                        simulationActive = !simulationActive;
+                    }
+                    if (key.Key == ConsoleKey.Escape)
+                    {
+                        PPrint("Game execution forcibly stopped");
+                        break;
+                    }
+                }
+
+                if (simulationActive)
+                {
+                    try
+                    {
+                        ocean.Step();
+                    }
+                    catch (System.IndexOutOfRangeException)
+                    {
+                        PPrint("Error: tried to place cell out of field");
+                    }
+                    i++;
+                }
+            }
+        }
+
+        private static void PPrint(string msg)
+        {
+            for (int i = 0; i < msg.Length + 4; i++)
+            {
+                Console.Write("*");
+            }
+
+            Console.Write($"\n* {msg} *\n");
+
+            for (int i = 0; i < msg.Length + 4; i++)
+            {
+                Console.Write("*");
+            }
+            Console.Write("\n");
         }
     }
+
+
 }

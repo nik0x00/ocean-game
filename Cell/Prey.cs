@@ -28,13 +28,13 @@
                     if (timeToReproduce <= 0)
                     {
                         ResetReproduce();
-                        ocean.SetCellOrNothing(nx, ny, new Prey());
+                        ocean.TrySetCell(nx, ny, new Prey());
                         ocean.OnPreyReproduced();
                     }
                     else
                     {
-                        ocean.SetCellOrNothing(x, y, Globals.cellSingle);
-                        ocean.SetCellOrNothing(nx, ny, this);
+                        ocean.TrySetCell(x, y, Globals.cellSingle);
+                        ocean.TrySetCell(nx, ny, this);
                     }
                     return false;
                 }
