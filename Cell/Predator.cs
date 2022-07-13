@@ -10,7 +10,7 @@
         {
             if (timeToFeed <= 0)
             {
-                ocean.SetCellOrNothing(x, y, Globals.cellSingle);
+                ocean.TrySetCell(x, y, Globals.cellSingle);
                 ocean.OnPredatorDied();
                 return;
             }
@@ -26,7 +26,7 @@
                 {
                     timeToFeed = GameSettings.PredatorTimeToFeed;
                     cell = Globals.cellSingle;
-                    ocean.SetCellOrNothing(nx, ny, cell);
+                    ocean.TrySetCell(nx, ny, cell);
                     ocean.OnPreyConsumed();
                     return false;
                 }
@@ -35,13 +35,13 @@
                     if (timeToReproduce <= 0)
                     {
                         ResetReproduce();
-                        ocean.SetCellOrNothing(nx, ny, new Predator());
+                        ocean.TrySetCell(nx, ny, new Predator());
                         ocean.OnPredatorReproduced();
                     }
                     else
                     {
-                        ocean.SetCellOrNothing(x, y, Globals.cellSingle);
-                        ocean.SetCellOrNothing(nx, ny, this);
+                        ocean.TrySetCell(x, y, Globals.cellSingle);
+                        ocean.TrySetCell(nx, ny, this);
                     }
                     return false;
                 }

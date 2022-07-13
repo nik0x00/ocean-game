@@ -70,12 +70,13 @@ namespace OceanGame
             return _cells[y, x];
         }
 
-        public void SetCellOrNothing(int x, int y, Cell cell)
+        public void TrySetCell(int x, int y, Cell cell)
         {
-            if (!IsOutOfBorder(x, y))
+            if (IsOutOfBorder(x, y))
             {
-                _cells[y, x] = cell;
+                throw new System.IndexOutOfRangeException("Cell coordinates is out of game field");
             }
+            _cells[y, x] = cell;
         }
 
         public void OnPreyConsumed()
