@@ -1,6 +1,7 @@
 ﻿using System;
+using OceanGame;
 
-namespace OceanGame
+namespace OceanTUI
 {
     public class OceanTextInterface : IOceanInterface
     {
@@ -62,7 +63,7 @@ namespace OceanGame
                 for (int j = 0; j < oceanWidth; j++)
                 {
                     if (prevFieldState[i, j] == null || prevFieldState[i, j].uid != field[i, j].uid)
-                    {        
+                    {
                         SetCell(j, i, field[i, j]);
                     }
                     prevFieldState[i, j] = field[i, j];

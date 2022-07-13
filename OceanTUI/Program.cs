@@ -51,7 +51,7 @@ namespace OceanTUI
                     {
                         ocean.Step();
                     }
-                    catch (System.IndexOutOfRangeException)
+                    catch (IndexOutOfRangeException)
                     {
                         PPrint("Error: tried to place cell out of field");
                     }

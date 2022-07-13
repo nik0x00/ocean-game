@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
+using System;
 
 namespace OceanGame
 {
@@ -74,7 +75,7 @@ namespace OceanGame
         {
             if (IsOutOfBorder(x, y))
             {
-                throw new System.IndexOutOfRangeException("Cell coordinates is out of game field");
+                throw new IndexOutOfRangeException("Cell coordinates is out of game field");
             }
             _cells[y, x] = cell;
         }
