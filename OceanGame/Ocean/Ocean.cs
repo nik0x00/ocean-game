@@ -6,8 +6,6 @@ namespace OceanGame
 {
     public class Ocean : IOceanCell
     {
-        private IOceanInterface _interface;
-
         private Cell[,] _cells;
 
         private int _width;
@@ -15,11 +13,10 @@ namespace OceanGame
 
         private GameStats _stats;
 
-        public Ocean(IOceanInterface oceanInterface)
+        public Ocean(int width, int height)
         {
-            _width = oceanInterface.oceanWidth;
-            _height = oceanInterface.oceanHeight;
-            _interface = oceanInterface;
+            _width = width;
+            _height = height;
 
             _stats.Reset();
 
@@ -118,23 +115,33 @@ namespace OceanGame
                 }
             }
         }
+
+        public event OceanDataChangedEventHandler OceanDataChanged;
+
         public void Step()
         {
             _stats.NextCycle();
 
-            _interface.Display(_cells, _stats);
+            if (OceanDataChanged != null)
+            {
+                OceanDataChanged(this, new OceanDataChangedEventArgs(_cells, _stats));
+            }
 
             Process();
         }
-        public void Run(int cycles)
-        {
-            for(int i = 0; i < cycles; i++)
-            {
-                Step();
-
-                Thread.Sleep(GameSettings.CycleInterval);
-            }
-        }
-
     }
+
+    public class OceanDataChangedEventArgs : EventArgs
+    {
+        public Cell[,] Field;
+        public GameStats Stats;
+
+        public OceanDataChangedEventArgs(Cell[,] field, GameStats stats)
+        {
+            Field = field;
+            Stats = stats;
+        }
+    }
+
+    public delegate void OceanDataChangedEventHandler(object sender, OceanDataChangedEventArgs e);
 }

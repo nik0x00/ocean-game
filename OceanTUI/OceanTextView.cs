@@ -3,7 +3,7 @@ using OceanGame;
 
 namespace OceanTUI
 {
-    public class OceanTextInterface : IOceanInterface
+    public class OceanTextView : IOceanView
     {
         private int currentCursorY = 0;
 
@@ -11,9 +11,13 @@ namespace OceanTUI
         private bool isBordersPrinted = false;
 
         private int baseOffset;
+
+        public event EventHandler PauseReceived;
+        public event EventHandler StepReceived;
+
         public int oceanWidth { get; }
         public int oceanHeight { get; }
-        public OceanTextInterface(int width, int height, int offset = 0)
+        public OceanTextView(int width, int height, int offset = 0)
         {
             oceanWidth = width;
             oceanHeight = height;
@@ -97,6 +101,36 @@ namespace OceanTUI
             DisplayLegend();
             DisplayField(field);
             DisplayStats(stats);
+        }
+
+        public void Pause()
+        {
+            if (PauseReceived != null)
+            {
+                PauseReceived(this, null);
+            }
+        }
+
+        public void Step()
+        {
+            if (StepReceived != null)
+            {
+                StepReceived(this, null);
+            }
+        }
+
+        public void DisplayMessage(string message)
+        {
+            for (int i = 0; i < message.Length + 4; i++)
+            {
+                Console.Write("*");
+            }
+            Console.Write($"\n* {message} *\n");
+            for (int i = 0; i < message.Length + 4; i++)
+            {
+                Console.Write("*");
+            }
+            Console.Write("\n");
         }
     }
 }

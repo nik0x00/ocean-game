@@ -18,9 +18,9 @@ namespace OceanGame
 
         public const double ObstacleRatio = 0.22;
 
-        public const int CycleInterval = 1;
+        public const int FramesPerSecond = 50;
 
-        public const int GameCycles = 1000;
+        public const int GameCycles = 150;
         public const int OceanWidth = 80;
         public const int OceanHeight = 30;
     }
