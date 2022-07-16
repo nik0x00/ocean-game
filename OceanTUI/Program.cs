@@ -40,8 +40,8 @@ namespace OceanTUI
 
             var oceanView = new OceanTextView(GameSettings.OceanWidth, GameSettings.OceanHeight);
             var oceanController = new OceanController(oceanView, GameSettings.FramesPerSecond, GameSettings.GameCycles);
-
-
+            
+            oceanView.Pause();
             while (oceanController.IsOceanAlive())
             {
                 UpdateKeyStates();
@@ -56,15 +56,10 @@ namespace OceanTUI
                 // Esc
                 if (WasKeyUp(27))
                 {
-                    oceanView.DisplayMessage("Game forcibly stopped");
                     oceanView.Pause();
+                    oceanView.DisplayMessage("Game forcibly stopped");
                     break;
                 }
-            }
-            // If not force exit
-            if (!oceanController.IsOceanAlive()) 
-            {
-                oceanView.DisplayMessage("Game End");
             }
             Console.ReadKey();
         }

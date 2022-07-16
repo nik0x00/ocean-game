@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="res\obstacle.png" />
+    <None Remove="res\predator.png" />
+    <None Remove="res\prey.png" />
+    <None Remove="res\void.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OceanGame\OceanGame.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="res\obstacle.png" />
+    <Resource Include="res\predator.png" />
+    <Resource Include="res\prey.png" />
+    <Resource Include="res\void.png" />
+  </ItemGroup>
+
+</Project>
