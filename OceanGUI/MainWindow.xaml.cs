@@ -37,7 +37,6 @@ namespace OceanGUI
         public MainWindow()
         {
             InitializeComponent();
-            ResizeMode = ResizeMode.NoResize;
 
             _controller = new OceanController(this, 1000, GameSettings.GameCycles);
             canvas.Focus();
@@ -80,14 +79,14 @@ namespace OceanGUI
                 Application.Current.Shutdown();
             }
         }
-
-        private void onKeyUp(object sender, KeyEventArgs e)
+        
+        private void OnKeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.P)
             {
                 Pause();
             }
-            if (e.Key == Key.S)
+            if (e.Key == Key.S && !_oceanTimer.IsEnabled)
             {
                 Step(this, null);
             }
@@ -116,11 +115,12 @@ namespace OceanGUI
                     DrawCell(field[i, j], j, i);
                 }
             }
-            statsText.Text = $"Map Stats\n" +
-                             $"Cycle:     {stats.cycle}\n" +
-                             $"Predators: {stats.predators}\n" +
-                             $"Prey:      {stats.prey}\n" +
-                             $"Obstacles: {stats.obstacles}\n";
+            statsText.Text =
+                $"Map Stats\n" +
+                $"Cycle:     {stats.cycle}\n" +
+                $"Predators: {stats.predators}\n" +
+                $"Prey:      {stats.prey}\n" +
+                $"Obstacles: {stats.obstacles}\n";
         }
 
         public void DisplayMessage(string message)
@@ -131,6 +131,7 @@ namespace OceanGUI
         private void DrawCell(Cell cell, int x, int y)
         {
             ImageBrush img;
+
             switch (cell.image)
             {
                 case GameSettings.ObstacleImage:
@@ -145,6 +146,7 @@ namespace OceanGUI
                 default:
                     return;
             }
+
             var sprite = new Rectangle
             {
                 Tag = "cell",
@@ -152,8 +154,10 @@ namespace OceanGUI
                 Width = _spriteWidth,
                 Fill = img
             }; 
+
             Canvas.SetLeft(sprite, x * (_spriteWidth + _padding) + _spriteWidth);
             Canvas.SetTop(sprite, y * (_spriteHeight + _padding));
+
             canvas.Children.Add(sprite);
         }
     }

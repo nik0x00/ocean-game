@@ -6,19 +6,20 @@
         xmlns:local="clr-namespace:OceanGUI"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid HorizontalAlignment="Right" Width="800">
-
-        <Canvas Background="LightBlue"
+    <Viewbox Stretch="Uniform">
+        <Grid HorizontalAlignment="Right" Width="800">
+            <Canvas Background="LightBlue"
                 Name="canvas"
                 Focusable="True"
-                KeyUp="onKeyUp" Margin="0,0,0,134"
+                KeyUp="OnKeyUp" Margin="0,0,0,134"
                 Width="800"
                 Height="300"
                 />
-        <TextBlock
+            <TextBlock
             Text=""
-            Margin="46,300,0,0"
+            Margin="0,300,0,0"
             Name="statsText"
             />
-    </Grid>
+        </Grid>
+    </Viewbox>
 </Window>

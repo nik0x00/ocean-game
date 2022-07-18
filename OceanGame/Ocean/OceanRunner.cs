@@ -13,7 +13,6 @@ namespace OceanGame
         private IOceanView _oceanView;
         private int _cycles;
         private bool _paused = true;
-        private Mutex _mutex = new Mutex();
         private bool _alive;
 
         public OceanRunner(Ocean ocean, IOceanView view, int clock, int cycles)
@@ -28,13 +27,11 @@ namespace OceanGame
             var clockThread = new Thread(() => {
                 while (_cycles > 0)
                 {
-                    _mutex.WaitOne();
                     if (!_paused && _alive)
                     {
                         TryStep();
                         Thread.Sleep(frameInterval);
                     }
-                    _mutex.ReleaseMutex();
                 }
             });
 
@@ -63,19 +60,15 @@ namespace OceanGame
 
         public void Step()
         {
-            _mutex.WaitOne();
             if (_paused && _alive)
             {
                 TryStep();
             }
-            _mutex.ReleaseMutex();
         }
 
         public void Switch()
         {
-            _mutex.WaitOne();
             _paused = !_paused;
-            _mutex.ReleaseMutex();
         }
 
         public bool IsAlive()

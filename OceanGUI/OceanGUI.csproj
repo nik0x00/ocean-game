@@ -11,7 +11,6 @@
     <None Remove="res\obstacle.png" />
     <None Remove="res\predator.png" />
     <None Remove="res\prey.png" />
-    <None Remove="res\void.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,7 +25,6 @@
     <Resource Include="res\obstacle.png" />
     <Resource Include="res\predator.png" />
     <Resource Include="res\prey.png" />
-    <Resource Include="res\void.png" />
   </ItemGroup>
 
 </Project>
