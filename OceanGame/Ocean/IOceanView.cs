@@ -4,7 +4,7 @@ namespace OceanGame
 {
     public interface IOceanView
     {
-        public GameSettings gameSettings { get; }
+        public GameSettings ViewGameSettings { get; }
         public void Display(in Cell[,] field, in GameStats stats);
 
         public void DisplayMessage(string message);

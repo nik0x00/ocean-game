@@ -24,7 +24,7 @@ namespace OceanGame
 
         public static Direction RandomDirection()
         {
-            return (Direction)Globals.random.Next(Enum.GetValues(typeof(Direction)).Length);
+            return (Direction)Globals.GRandom.Next(Enum.GetValues(typeof(Direction)).Length);
         }
 
         public static void DirectionRandomIterate(DirectionAction action)

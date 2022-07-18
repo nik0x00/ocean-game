@@ -30,7 +30,7 @@ namespace OceanGame
             {
                 case GameSettings.ObstacleImage:
                     _stats.obstacles++;
-                    return Globals.obstacleSingle;
+                    return Globals.ObstacleSingle;
                 case GameSettings.PredatorImage:
                     _stats.predators++;
                     return new Predator(_settings);
@@ -38,17 +38,17 @@ namespace OceanGame
                     _stats.prey++;
                     return new Prey(_settings);
                 default:
-                    return Globals.cellSingle;
+                    return Globals.CellSingle;
             }
         }
 
         private void InitCells()
         {
-            _cells = new Cell[_settings.oceanHeight, _settings.oceanWidth];
+            _cells = new Cell[_settings.OceanHeight, _settings.OceanWidth];
 
-            for (int i = 0; i < _settings.oceanHeight; i++)
+            for (int i = 0; i < _settings.OceanHeight; i++)
             {
-                for (int j = 0; j < _settings.oceanWidth; j++)
+                for (int j = 0; j < _settings.OceanWidth; j++)
                 {
                     _cells[i, j] = GenerateCellFromImage(_random.NextCellImage());
                 }
@@ -56,14 +56,14 @@ namespace OceanGame
         }
         private bool IsOutOfBorder(int x, int y)
         {
-            return x >= _settings.oceanWidth || y >= _settings.oceanHeight || x < 0 || y < 0;
+            return x >= _settings.OceanWidth || y >= _settings.OceanHeight || x < 0 || y < 0;
         }
 
         public Cell GetCell(int x, int y)
         {
             if (IsOutOfBorder(x, y))
             {
-                return Globals.obstacleSingle;
+                return Globals.ObstacleSingle;
             }
 
             return _cells[y, x];
@@ -102,11 +102,11 @@ namespace OceanGame
         {
             var processed = new HashSet<int>();
 
-            for (int i = 0; i < _settings.oceanHeight; i++)
+            for (int i = 0; i < _settings.OceanHeight; i++)
             {
-                for (int j = 0; j < _settings.oceanWidth; j++)
+                for (int j = 0; j < _settings.OceanWidth; j++)
                 {
-                    int uid = _cells[i, j].uid;
+                    int uid = _cells[i, j].UID;
 
                     if (!processed.Contains(uid))
                     {

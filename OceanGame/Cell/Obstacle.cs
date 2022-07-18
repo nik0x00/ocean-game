@@ -2,6 +2,6 @@
 {
     public class Obstacle : Cell
     {
-        public override char image { get; } = GameSettings.ObstacleImage;
+        public override char Image { get; } = GameSettings.ObstacleImage;
     }
 }

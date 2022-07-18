@@ -35,16 +35,16 @@ namespace OceanGUI
 
         private readonly DispatcherTimer _oceanTimer = new DispatcherTimer();
 
-        public GameSettings gameSettings { get; }
+        public GameSettings ViewGameSettings { get; }
 
         public MainWindow()
         {
             InitializeComponent();
 
-            gameSettings = new GameSettings();
+            ViewGameSettings = new GameSettings();
             
-            gameSettings.oceanHeight = (int)canvas.Height / (_spriteHeight + _padding * 2);
-            gameSettings.oceanWidth = (int)canvas.Width / (_spriteWidth + _padding * 2);
+            ViewGameSettings.OceanHeight = (int)canvas.Height / (_spriteHeight + _padding * 2);
+            ViewGameSettings.OceanWidth = (int)canvas.Width / (_spriteWidth + _padding * 2);
 
             _controller = new OceanController(this);
             canvas.Focus();
@@ -113,9 +113,9 @@ namespace OceanGUI
         public void Display(in Cell[,] field, in GameStats stats)
         {
             canvas.Children.Clear();
-            for (int i = 0; i < gameSettings.oceanHeight; i++)
+            for (int i = 0; i < ViewGameSettings.OceanHeight; i++)
             {
-                for (int j = 0; j < gameSettings.oceanWidth; j++)
+                for (int j = 0; j < ViewGameSettings.OceanWidth; j++)
                 {
                     DrawCell(field[i, j], j, i);
                 }
@@ -137,7 +137,7 @@ namespace OceanGUI
         {
             ImageBrush img;
 
-            switch (cell.image)
+            switch (cell.Image)
             {
                 case GameSettings.ObstacleImage:
                     img = _obstacleImg;

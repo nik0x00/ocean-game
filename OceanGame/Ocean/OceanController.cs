@@ -14,10 +14,10 @@ namespace OceanGame
         public OceanController(IOceanView view)
         {
             _view = view;
-            _ocean = new Ocean(view.gameSettings);
+            _ocean = new Ocean(view.ViewGameSettings);
             _ocean.OceanDataChanged += RefreshView;
 
-            _oceanRunner = new OceanRunner(_ocean, _view, view.gameSettings.FramesPerSecond, view.gameSettings.GameCycles);
+            _oceanRunner = new OceanRunner(_ocean, _view, view.ViewGameSettings.FramesPerSecond, view.ViewGameSettings.GameCycles);
 
             _view.PauseReceived += View_Pause;
             _view.StepReceived += View_Step;

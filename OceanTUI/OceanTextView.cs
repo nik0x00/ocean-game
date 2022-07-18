@@ -16,12 +16,13 @@ namespace OceanTUI
         public event EventHandler StepReceived;
         public event EventHandler ForceEndReceived;
 
-        public GameSettings gameSettings { get; }
+        public GameSettings ViewGameSettings { get; }
         public OceanTextView(GameSettings settings, int offset = 0)
         {
-            gameSettings = settings;    
+            Console.CursorVisible = false;
+            ViewGameSettings = settings;    
             baseOffset = offset;
-            prevFieldState = new Cell[gameSettings.oceanHeight, gameSettings.oceanWidth];
+            prevFieldState = new Cell[ViewGameSettings.OceanHeight, ViewGameSettings.OceanWidth];
         }
         private void DisplayHorizontalBorders(int length)
         {
@@ -34,22 +35,22 @@ namespace OceanTUI
         }
         private void PrintBorder()
         {
-            DisplayHorizontalBorders(gameSettings.oceanWidth);
-            for (int i = 0; i < gameSettings.oceanHeight; i++)
+            DisplayHorizontalBorders(ViewGameSettings.OceanWidth);
+            for (int i = 0; i < ViewGameSettings.OceanHeight; i++)
             {
                 Console.Write('|');
-                for (int j = 0; j < gameSettings.oceanWidth; j++)
+                for (int j = 0; j < ViewGameSettings.OceanWidth; j++)
                 {
                     Console.Write(' ');
                 }
                 Console.Write("|\n");
             }
-            DisplayHorizontalBorders(gameSettings.oceanWidth);
+            DisplayHorizontalBorders(ViewGameSettings.OceanWidth);
         }
         private void SetCell(int x, int y, Cell cell)
         {
             Console.SetCursorPosition(x + 1, currentCursorY + y + 1);
-            Console.Write(cell.image);
+            Console.Write(cell.Image);
         }
         private void DisplayField(in Cell[,] field)
         {
@@ -61,11 +62,11 @@ namespace OceanTUI
                 isBordersPrinted = true;
             }
 
-            for (int i = 0; i < gameSettings.oceanHeight; i++)
+            for (int i = 0; i < ViewGameSettings.OceanHeight; i++)
             {
-                for (int j = 0; j < gameSettings.oceanWidth; j++)
+                for (int j = 0; j < ViewGameSettings.OceanWidth; j++)
                 {
-                    if (prevFieldState[i, j] == null || prevFieldState[i, j].uid != field[i, j].uid)
+                    if (prevFieldState[i, j] == null || prevFieldState[i, j].UID != field[i, j].UID)
                     {
                         SetCell(j, i, field[i, j]);
                     }
@@ -73,7 +74,7 @@ namespace OceanTUI
                 }
             }
 
-            Console.SetCursorPosition(0, currentCursorY + gameSettings.oceanHeight + 2);
+            Console.SetCursorPosition(0, currentCursorY + ViewGameSettings.OceanHeight + 2);
         }
 
         private void DisplayLegend()

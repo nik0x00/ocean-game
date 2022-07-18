@@ -7,11 +7,11 @@ namespace OceanTUI
 {
     internal class Program
     {
-        static bool[] keys = new bool[255];  //KeyUp states
-        static bool[] press = new bool[255]; // Press states
+        private static bool[] keys = new bool[255];  //KeyUp states
+        private static bool[] press = new bool[255]; // Press states
 
         [DllImport("user32.dll")]
-        static extern ushort GetAsyncKeyState(int vKey);
+        private static extern ushort GetAsyncKeyState(int vKey);
 
         static void Main(string[] args)
         {
@@ -21,10 +21,11 @@ namespace OceanTUI
             Console.WriteLine("Press any key to start");
             Console.WriteLine("Press P to pause");
             Console.WriteLine("Press S to make single step if paused");
+            Console.WriteLine("Press C to change configuration");
 
             Console.WriteLine("\nOcean:");
-            Console.WriteLine($"Width:              {settings.oceanWidth}");
-            Console.WriteLine($"Height:             {settings.oceanHeight}");
+            Console.WriteLine($"Width:              {settings.OceanWidth}");
+            Console.WriteLine($"Height:             {settings.OceanHeight}");
             Console.WriteLine($"Cycles:             {settings.GameCycles}");
 
             Console.WriteLine("\nRatios:");
@@ -37,9 +38,15 @@ namespace OceanTUI
             Console.WriteLine($"Predator feed:      {settings.PredatorTimeToFeed}");
             Console.WriteLine($"Prey reproduce:     {settings.PreyTimeToReproduce}");
 
-            Console.ReadKey();
+            var key = Console.ReadKey();
+
+            if (key.Key == ConsoleKey.C)
+            {
+                GameSettingsTextEditor.Edit(ref settings);
+            }
+
             Console.Clear();
-            Console.SetWindowSize(settings.oceanWidth + 10, settings.oceanHeight + 16);
+            Console.SetWindowSize(settings.OceanWidth + 10, settings.OceanHeight + 16);
 
             var oceanView = new OceanTextView(settings);
             var oceanController = new OceanController(oceanView);

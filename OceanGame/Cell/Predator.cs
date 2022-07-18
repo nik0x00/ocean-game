@@ -2,7 +2,7 @@
 {
     public class Predator : Prey
     {
-        public override char image { get; } = GameSettings.PredatorImage;
+        public override char Image { get; } = GameSettings.PredatorImage;
 
         private int timeToFeed;
 
@@ -17,7 +17,7 @@
         {
             if (timeToFeed <= 0)
             {
-                ocean.TrySetCell(x, y, Globals.cellSingle);
+                ocean.TrySetCell(x, y, Globals.CellSingle);
                 ocean.OnPredatorDied();
                 return;
             }
@@ -29,15 +29,15 @@
 
                 Cell cell = ocean.GetCell(nx, ny);
 
-                if (cell.image == GameSettings.PreyImage)
+                if (cell.Image == GameSettings.PreyImage)
                 {
                     timeToFeed = _settings.PredatorTimeToFeed;
-                    cell = Globals.cellSingle;
+                    cell = Globals.CellSingle;
                     ocean.TrySetCell(nx, ny, cell);
                     ocean.OnPreyConsumed();
                     return false;
                 }
-                if (cell.image == GameSettings.VoidImage)
+                if (cell.Image == GameSettings.VoidImage)
                 {
                     if (timeToReproduce <= 0)
                     {
@@ -47,7 +47,7 @@
                     }
                     else
                     {
-                        ocean.TrySetCell(x, y, Globals.cellSingle);
+                        ocean.TrySetCell(x, y, Globals.CellSingle);
                         ocean.TrySetCell(nx, ny, this);
                     }
                     return false;

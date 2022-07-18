@@ -21,7 +21,7 @@ namespace OceanGame
         public int FramesPerSecond = 20;
 
         public int GameCycles = 150;
-        public int oceanWidth = 80;
-        public int oceanHeight = 30;
+        public int OceanWidth = 80;
+        public int OceanHeight = 30;
     }
 }

@@ -8,9 +8,9 @@ namespace OceanGame
 {
     public class Globals
     {
-        public static Random random = new Random();
+        public static Random GRandom = new Random();
         public static UIDGenerator gameUIDGenerator = new UIDGenerator();
-        public static Cell cellSingle = new Cell();
-        public static Obstacle obstacleSingle = new Obstacle();
+        public static Cell CellSingle = new Cell();
+        public static Obstacle ObstacleSingle = new Obstacle();
     }
 }

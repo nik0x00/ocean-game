@@ -2,7 +2,7 @@
 {
     public class Prey : Cell
     {
-        public override char image { get; } = GameSettings.PreyImage;
+        public override char Image { get; } = GameSettings.PreyImage;
         protected int defaultTimeToReproduce;
         protected int timeToReproduce;
 
@@ -20,7 +20,7 @@
         }
         protected void ResetReproduce()
         {
-            timeToReproduce = Globals.random.Next(defaultTimeToReproduce) + (defaultTimeToReproduce / 2);
+            timeToReproduce = Globals.GRandom.Next(defaultTimeToReproduce) + (defaultTimeToReproduce / 2);
         }
 
         public override void Process(int x, int y, IOceanCell ocean)
@@ -32,7 +32,7 @@
 
                 Cell cell = ocean.GetCell(nx, ny);
 
-                if (cell.image == GameSettings.VoidImage)
+                if (cell.Image == GameSettings.VoidImage)
                 {
                     if (timeToReproduce <= 0)
                     {
@@ -42,7 +42,7 @@
                     }
                     else
                     {
-                        ocean.TrySetCell(x, y, Globals.cellSingle);
+                        ocean.TrySetCell(x, y, Globals.CellSingle);
                         ocean.TrySetCell(nx, ny, this);
                     }
                     return false;
