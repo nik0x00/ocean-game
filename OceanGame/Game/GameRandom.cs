@@ -6,13 +6,18 @@ namespace OceanGame
 {
     public class GameRandom : Random
     {
-        private static List<(char img, double ratio)> ratios = new List<(char, double)>
+        private List<(char img, double ratio)> ratios;
+
+        public GameRandom(GameSettings settings)
         {
-            new (GameSettings.ObstacleImage, GameSettings.ObstacleRatio),
-            new (GameSettings.PredatorImage, GameSettings.PredatorRatio),
-            new (GameSettings.PreyImage, GameSettings.PreyRatio),
-            new (GameSettings.VoidImage, 1)
-        };
+            ratios = new List<(char, double)>
+            {
+                new (GameSettings.ObstacleImage, settings.ObstacleRatio),
+                new (GameSettings.PredatorImage, settings.PredatorRatio),
+                new (GameSettings.PreyImage, settings.PreyRatio),
+                new (GameSettings.VoidImage, 1)
+            };
+        }
 
         public char NextCellImage()
         {

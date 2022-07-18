@@ -9,19 +9,19 @@ namespace OceanGame
         public const char PreyImage = '*';
         public const char PredatorImage = '@';
 
-        public const double PredatorRatio = 0.15;
-        public const int PredatorTimeToFeed = 20;
-        public const int PredatorTimeToReproduce = 30;
+        public double PredatorRatio = 0.15;
+        public int PredatorTimeToFeed = 20;
+        public int PredatorTimeToReproduce = 30;
 
-        public const double PreyRatio = 0.31;
-        public const int PreyTimeToReproduce = 30;
+        public double PreyRatio = 0.31;
+        public int PreyTimeToReproduce = 30;
 
-        public const double ObstacleRatio = 0.22;
+        public double ObstacleRatio = 0.22;
 
-        public const int FramesPerSecond = 50;
+        public int FramesPerSecond = 20;
 
-        public const int GameCycles = 150;
-        public const int OceanWidth = 80;
-        public const int OceanHeight = 30;
+        public int GameCycles = 150;
+        public int oceanWidth = 80;
+        public int oceanHeight = 30;
     }
 }

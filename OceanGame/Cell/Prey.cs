@@ -3,8 +3,16 @@
     public class Prey : Cell
     {
         public override char image { get; } = GameSettings.PreyImage;
-        protected virtual int defaultTimeToReproduce { get; } = GameSettings.PreyTimeToReproduce;
+        protected int defaultTimeToReproduce;
         protected int timeToReproduce;
+
+        protected readonly GameSettings _settings;
+        public Prey(GameSettings settings)
+        {
+            _settings = settings;
+            defaultTimeToReproduce = settings.PreyTimeToReproduce;
+            ResetReproduce();
+        }
 
         public Prey()
         {
@@ -12,8 +20,9 @@
         }
         protected void ResetReproduce()
         {
-            timeToReproduce = Globals.gameRandom.Next(defaultTimeToReproduce) + (defaultTimeToReproduce / 2);
+            timeToReproduce = Globals.random.Next(defaultTimeToReproduce) + (defaultTimeToReproduce / 2);
         }
+
         public override void Process(int x, int y, IOceanCell ocean)
         {
             DirectionTools.DirectionRandomIterate((int nx, int ny) =>
@@ -28,7 +37,7 @@
                     if (timeToReproduce <= 0)
                     {
                         ResetReproduce();
-                        ocean.TrySetCell(nx, ny, new Prey());
+                        ocean.TrySetCell(nx, ny, new Prey(_settings));
                         ocean.OnPreyReproduced();
                     }
                     else

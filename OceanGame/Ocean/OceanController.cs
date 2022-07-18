@@ -11,21 +11,27 @@ namespace OceanGame
         private Ocean _ocean;
         private readonly IOceanView _view;
         private OceanRunner _oceanRunner;
-        public OceanController(IOceanView view, int fps, int cycles)
+        public OceanController(IOceanView view)
         {
             _view = view;
-            _ocean = new Ocean(_view.oceanWidth, _view.oceanHeight);
+            _ocean = new Ocean(view.gameSettings);
             _ocean.OceanDataChanged += RefreshView;
 
-            _oceanRunner = new OceanRunner(_ocean, _view, fps, cycles);
+            _oceanRunner = new OceanRunner(_ocean, _view, view.gameSettings.FramesPerSecond, view.gameSettings.GameCycles);
 
             _view.PauseReceived += View_Pause;
             _view.StepReceived += View_Step;
+            _view.ForceEndReceived += View_End;
         }
 
         public bool IsOceanAlive()
         {
             return _oceanRunner.IsAlive();
+        }
+
+        private void View_End (object sender, EventArgs e)
+        {
+            _oceanRunner.ForceEnd();
         }
 
         private void View_Pause(object sender, EventArgs e)

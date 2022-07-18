@@ -34,11 +34,19 @@ namespace OceanGUI
         private readonly ImageBrush _obstacleImg = ImageLoader.Load(@"pack://application:,,,/res/obstacle.png");
 
         private readonly DispatcherTimer _oceanTimer = new DispatcherTimer();
+
+        public GameSettings gameSettings { get; }
+
         public MainWindow()
         {
             InitializeComponent();
 
-            _controller = new OceanController(this, 1000, GameSettings.GameCycles);
+            gameSettings = new GameSettings();
+            
+            gameSettings.oceanHeight = (int)canvas.Height / (_spriteHeight + _padding * 2);
+            gameSettings.oceanWidth = (int)canvas.Width / (_spriteWidth + _padding * 2);
+
+            _controller = new OceanController(this);
             canvas.Focus();
 
             // We don`t use ocean runner thread here because Display() needs to be called from main thread
@@ -98,19 +106,16 @@ namespace OceanGUI
             }
         }
 
-        public int oceanWidth => (int)canvas.Width / (_spriteWidth + _padding*2);
-
-        public int oceanHeight => (int)canvas.Height / (_spriteHeight + _padding * 2);
-
         public event EventHandler PauseReceived;
         public event EventHandler StepReceived;
+        public event EventHandler ForceEndReceived;
 
         public void Display(in Cell[,] field, in GameStats stats)
         {
             canvas.Children.Clear();
-            for (int i = 0; i < oceanHeight; i++)
+            for (int i = 0; i < gameSettings.oceanHeight; i++)
             {
-                for (int j = 0; j < oceanWidth; j++)
+                for (int j = 0; j < gameSettings.oceanWidth; j++)
                 {
                     DrawCell(field[i, j], j, i);
                 }

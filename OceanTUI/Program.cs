@@ -15,31 +15,34 @@ namespace OceanTUI
 
         static void Main(string[] args)
         {
+            var settings = new GameSettings();
+
+
             Console.WriteLine("Press any key to start");
             Console.WriteLine("Press P to pause");
             Console.WriteLine("Press S to make single step if paused");
 
             Console.WriteLine("\nOcean:");
-            Console.WriteLine($"Width:              {GameSettings.OceanWidth}");
-            Console.WriteLine($"Height:             {GameSettings.OceanHeight}");
-            Console.WriteLine($"Cycles:             {GameSettings.GameCycles}");
+            Console.WriteLine($"Width:              {settings.oceanWidth}");
+            Console.WriteLine($"Height:             {settings.oceanHeight}");
+            Console.WriteLine($"Cycles:             {settings.GameCycles}");
 
             Console.WriteLine("\nRatios:");
-            Console.WriteLine($"Obstacle:           {GameSettings.ObstacleRatio}");
-            Console.WriteLine($"Predator:           {GameSettings.PredatorRatio}");
-            Console.WriteLine($"Prey:               {GameSettings.PreyRatio}");
+            Console.WriteLine($"Obstacle:           {settings.ObstacleRatio}");
+            Console.WriteLine($"Predator:           {settings.PredatorRatio}");
+            Console.WriteLine($"Prey:               {settings.PreyRatio}");
 
             Console.WriteLine("\nCycles:");
-            Console.WriteLine($"Predator reproduce: {GameSettings.PredatorTimeToReproduce}");
-            Console.WriteLine($"Predator feed:      {GameSettings.PredatorTimeToFeed}");
-            Console.WriteLine($"Prey reproduce:     {GameSettings.PreyTimeToReproduce}");
+            Console.WriteLine($"Predator reproduce: {settings.PredatorTimeToReproduce}");
+            Console.WriteLine($"Predator feed:      {settings.PredatorTimeToFeed}");
+            Console.WriteLine($"Prey reproduce:     {settings.PreyTimeToReproduce}");
 
             Console.ReadKey();
             Console.Clear();
-            Console.SetWindowSize(GameSettings.OceanWidth + 10, GameSettings.OceanHeight + 16);
+            Console.SetWindowSize(settings.oceanWidth + 10, settings.oceanHeight + 16);
 
-            var oceanView = new OceanTextView(GameSettings.OceanWidth, GameSettings.OceanHeight);
-            var oceanController = new OceanController(oceanView, GameSettings.FramesPerSecond, GameSettings.GameCycles);
+            var oceanView = new OceanTextView(settings);
+            var oceanController = new OceanController(oceanView);
             
             oceanView.Pause();
             while (oceanController.IsOceanAlive())
@@ -56,8 +59,7 @@ namespace OceanTUI
                 // Esc
                 if (WasKeyUp(27))
                 {
-                    oceanView.Pause();
-                    oceanView.DisplayMessage("Game forcibly stopped");
+                    oceanView.ForceEnd();
                     break;
                 }
             }

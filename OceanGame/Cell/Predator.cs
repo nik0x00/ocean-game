@@ -3,8 +3,15 @@
     public class Predator : Prey
     {
         public override char image { get; } = GameSettings.PredatorImage;
-        protected override int defaultTimeToReproduce { get; } = GameSettings.PredatorTimeToReproduce;
-        private int timeToFeed = GameSettings.PredatorTimeToFeed;
+
+        private int timeToFeed;
+
+        public Predator(GameSettings settings) : base(settings: settings)
+        {
+            defaultTimeToReproduce = _settings.PredatorTimeToReproduce;
+            timeToFeed = _settings.PredatorTimeToFeed;
+            ResetReproduce();
+        }
 
         public override void Process(int x, int y, IOceanCell ocean)
         {
@@ -24,7 +31,7 @@
 
                 if (cell.image == GameSettings.PreyImage)
                 {
-                    timeToFeed = GameSettings.PredatorTimeToFeed;
+                    timeToFeed = _settings.PredatorTimeToFeed;
                     cell = Globals.cellSingle;
                     ocean.TrySetCell(nx, ny, cell);
                     ocean.OnPreyConsumed();
@@ -35,7 +42,7 @@
                     if (timeToReproduce <= 0)
                     {
                         ResetReproduce();
-                        ocean.TrySetCell(nx, ny, new Predator());
+                        ocean.TrySetCell(nx, ny, new Predator(_settings));
                         ocean.OnPredatorReproduced();
                     }
                     else

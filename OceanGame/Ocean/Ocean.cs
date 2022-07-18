@@ -8,15 +8,16 @@ namespace OceanGame
     {
         private Cell[,] _cells;
 
-        private int _width;
-        private int _height;
+        private GameSettings _settings;
+        private GameRandom _random;
 
         private GameStats _stats;
 
-        public Ocean(int width, int height)
+        public Ocean(GameSettings settings)
         {
-            _width = width;
-            _height = height;
+            _settings = settings;
+
+            _random = new GameRandom(_settings);
 
             _stats.Reset();
 
@@ -32,10 +33,10 @@ namespace OceanGame
                     return Globals.obstacleSingle;
                 case GameSettings.PredatorImage:
                     _stats.predators++;
-                    return new Predator();
+                    return new Predator(_settings);
                 case GameSettings.PreyImage:
                     _stats.prey++;
-                    return new Prey();
+                    return new Prey(_settings);
                 default:
                     return Globals.cellSingle;
             }
@@ -43,19 +44,19 @@ namespace OceanGame
 
         private void InitCells()
         {
-            _cells = new Cell[_height, _width];
+            _cells = new Cell[_settings.oceanHeight, _settings.oceanWidth];
 
-            for (int i = 0; i < _height; i++)
+            for (int i = 0; i < _settings.oceanHeight; i++)
             {
-                for (int j = 0; j < _width; j++)
+                for (int j = 0; j < _settings.oceanWidth; j++)
                 {
-                    _cells[i, j] = GenerateCellFromImage(Globals.gameRandom.NextCellImage());
+                    _cells[i, j] = GenerateCellFromImage(_random.NextCellImage());
                 }
             }
         }
         private bool IsOutOfBorder(int x, int y)
         {
-            return x >= _width || y >= _height || x < 0 || y < 0;
+            return x >= _settings.oceanWidth || y >= _settings.oceanHeight || x < 0 || y < 0;
         }
 
         public Cell GetCell(int x, int y)
@@ -101,9 +102,9 @@ namespace OceanGame
         {
             var processed = new HashSet<int>();
 
-            for (int i = 0; i < _height; i++)
+            for (int i = 0; i < _settings.oceanHeight; i++)
             {
-                for (int j = 0; j < _width; j++)
+                for (int j = 0; j < _settings.oceanWidth; j++)
                 {
                     int uid = _cells[i, j].uid;
 
