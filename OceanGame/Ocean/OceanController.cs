@@ -17,7 +17,7 @@ namespace OceanGame
             _ocean = new Ocean(view.ViewGameSettings);
             _ocean.OceanDataChanged += RefreshView;
 
-            _oceanRunner = new OceanRunner(_ocean, _view, view.ViewGameSettings.FramesPerSecond, view.ViewGameSettings.GameCycles);
+            _oceanRunner = new OceanRunner(_ocean, _view, view.ViewGameSettings.MaxFramesPerSecond, view.ViewGameSettings.GameCycles);
 
             _view.PauseReceived += View_Pause;
             _view.StepReceived += View_Step;

@@ -42,7 +42,15 @@ namespace OceanTUI
 
             if (key.Key == ConsoleKey.C)
             {
-                GameSettingsTextEditor.Edit(ref settings);
+                var menu = new SettingsEditMenuText();
+                var editor = new GameSettingsEditor(menu);
+
+                editor.OnSettingsEdited += (s, e) =>
+                {
+                    settings = e.settings;
+                };
+
+                editor.Edit(settings);
             }
 
             Console.Clear();

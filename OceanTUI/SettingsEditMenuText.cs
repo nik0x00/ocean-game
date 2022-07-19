@@ -3,21 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OceanGame;
 
 namespace OceanTUI
 { 
-    public class NumberEditMenu
+    public class SettingsEditMenuText : ISettingsMenu
     {
+
         private int _offsetY = 0;
         private int _currHighlight = 0;
-        private List<(string entry, double val)> _entries = new List<(string, double)>();
+        private List<(string entry, double val, double min, double max)> _entries = new List<(string, double, double, double)>();
 
-        public void AddEntry(string name, double defaultValue)
+        public event MenuEndEventHandler OnMenuEnd;
+
+        public SettingsEditMenuText()
         {
-            _entries.Add((name, defaultValue));
         }
 
-        public List<(string entry, double val)> Make()
+        public void AddEntry(string name, double defaultValue, double min, double max)
+        {
+            _entries.Add((name, defaultValue, min, max));
+        }
+
+        public void Make()
         {
             Console.Clear();
             Console.WriteLine("Press Q to exit menu");
@@ -37,8 +45,13 @@ namespace OceanTUI
                     if (key == ConsoleKey.Q)
                     {
                         InvertColor(false);
-                        Console.CursorVisible = false;
-                        return _entries;
+                        Console.CursorVisible = true;
+                        if (OnMenuEnd != null)
+                        {
+                            var entries = _entries.Select((x, i) => (x.entry, x.val)).ToList();
+                            OnMenuEnd(this, new MenuEndEventArgs(entries));
+                        }
+                        return;
                     }
 
                     else if (key == ConsoleKey.UpArrow)
@@ -129,9 +142,10 @@ namespace OceanTUI
             while (true)
             {
                 bool success = Double.TryParse(Console.ReadLine(), out var val);
-                if (success)
+                var entry = _entries[_currHighlight];
+                if (success && val > entry.min && val < entry.max)
                 {
-                    _entries[_currHighlight] = (_entries[_currHighlight].entry, val);
+                    _entries[_currHighlight] = (entry.entry, val, entry.min, entry.max);
                     DisplayEntry(index, true);
                     Console.CursorVisible = false;
                     return;

@@ -27,7 +27,7 @@ namespace OceanGUI
         private const int _spriteHeight = 16;
         private const int _padding = 1;
 
-        private readonly OceanController _controller;
+        private OceanController _controller;
 
         private readonly ImageBrush _preyImg = ImageLoader.Load(@"pack://application:,,,/res/prey.png");
         private readonly ImageBrush _predatorImg = ImageLoader.Load(@"pack://application:,,,/res/predator.png");
@@ -35,27 +35,16 @@ namespace OceanGUI
 
         private readonly DispatcherTimer _oceanTimer = new DispatcherTimer();
 
-        public GameSettings ViewGameSettings { get; }
+        private bool _gameStarted = false;
+        public GameSettings ViewGameSettings { get; private set; }
 
         public MainWindow()
         {
             InitializeComponent();
-
             ViewGameSettings = new GameSettings();
-            
-            ViewGameSettings.OceanHeight = (int)canvas.Height / (_spriteHeight + _padding * 2);
-            ViewGameSettings.OceanWidth = (int)canvas.Width / (_spriteWidth + _padding * 2);
 
-            _controller = new OceanController(this);
-            canvas.Focus();
-
-            // We don`t use ocean runner thread here because Display() needs to be called from main thread
-            // We are manually making steps with timer instead
-            _oceanTimer.Tick += Step;
-            _oceanTimer.Tick += WatchAlive;
-            _oceanTimer.Interval = TimeSpan.FromMilliseconds(1000 / 20);
-
-            statsText.Text = 
+            helpText.TextWrapping = TextWrapping.Wrap;
+            helpText.Text = 
                 "Press P to pause/unpause game\n" + 
                 "Press S to make single step while paused";
         }
@@ -88,13 +77,51 @@ namespace OceanGUI
             }
         }
         
+        private void StartSettings(object sender, RoutedEventArgs e)
+        {
+            IsEnabled = false;
+
+            var settingsWindow = new SettingsEditWindow(ViewGameSettings);
+            var editor = new GameSettingsEditor(settingsWindow);
+
+            editor.OnSettingsEdited +=
+                (object sender, SettingsSaveEventArgs e) =>
+                {
+                    ViewGameSettings = e.settings;
+                    IsEnabled = true;
+                };
+
+            editor.Edit(ViewGameSettings);
+        }
+
+        private void StartGame(object sender, RoutedEventArgs e)
+        {
+            ViewGameSettings.OceanHeight = (int)canvas.Height / (_spriteHeight + _padding * 2);
+            ViewGameSettings.OceanWidth = (int)canvas.Width / (_spriteWidth + _padding * 2);
+
+            _controller = new OceanController(this);
+
+            // We don`t use ocean runner thread here because Display() needs to be called from main thread
+            // We are manually making steps with timer instead
+            _oceanTimer.Tick += Step;
+            _oceanTimer.Tick += WatchAlive;
+            _oceanTimer.Interval = TimeSpan.FromMilliseconds(1000 / ViewGameSettings.MaxFramesPerSecond);
+
+            _gameStarted = true;
+
+            Pause(); // Actually start game
+
+            startButton.IsEnabled = false;
+            settingsButton.IsEnabled = false;
+        }
+
         private void OnKeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.P)
+            if (e.Key == Key.P && _gameStarted)
             {
                 Pause();
             }
-            if (e.Key == Key.S && !_oceanTimer.IsEnabled)
+            if (e.Key == Key.S && !_oceanTimer.IsEnabled && _gameStarted)
             {
                 Step(this, null);
             }
@@ -160,7 +187,7 @@ namespace OceanGUI
                 Fill = img
             }; 
 
-            Canvas.SetLeft(sprite, x * (_spriteWidth + _padding) + _spriteWidth);
+            Canvas.SetLeft(sprite, x * (_spriteWidth + _padding));
             Canvas.SetTop(sprite, y * (_spriteHeight + _padding));
 
             canvas.Children.Add(sprite);

@@ -5,21 +5,51 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OceanGUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Viewbox Stretch="Uniform">
-        <Grid HorizontalAlignment="Right" Width="800">
+        Title="Ocean Game"
+        Height="360"
+        Width="600"
+        KeyUp="OnKeyUp">
+
+    <Grid HorizontalAlignment="Center" ShowGridLines="True" Margin="0,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="327*"/>
+            <RowDefinition Height="120"/>
+        </Grid.RowDefinitions>
+        <Viewbox Stretch="Uniform">
             <Canvas Background="LightBlue"
                 Name="canvas"
-                Focusable="True"
-                KeyUp="OnKeyUp" Margin="0,0,0,134"
-                Width="800"
-                Height="300"
-                />
+                Width="600"
+                Height="200"
+                >
+            </Canvas>
+        </Viewbox>
+        <Grid Grid.Row="1" ShowGridLines="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="239*"/>
+                <ColumnDefinition Width="211*"/>
+                <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
             <TextBlock
-            Text=""
-            Margin="0,300,0,0"
-            Name="statsText"
+                Text=""
+                Name="statsText" Grid.Column="0"
+                Margin="5,10,5,0"
             />
+            <TextBlock
+                Text=""
+                Name="helpText" Grid.Column="1"
+                Margin="5,10,5,0"
+            />
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Button Click="StartGame" Grid.Row="0" Margin="15,15,15,15" Name="startButton">Start</Button>
+                <Button Click="StartSettings" Grid.Row="1" Margin="15,15,15,15" Name="settingsButton">Settings</Button>
+            </Grid>
+
         </Grid>
-    </Viewbox>
+
+    </Grid>
+
 </Window>
