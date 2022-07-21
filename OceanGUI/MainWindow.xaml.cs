@@ -89,6 +89,7 @@ namespace OceanGUI
                 {
                     ViewGameSettings = e.settings;
                     IsEnabled = true;
+                    ScaleCanvas();
                 };
 
             editor.Edit(ViewGameSettings);
@@ -96,8 +97,7 @@ namespace OceanGUI
 
         private void StartGame(object sender, RoutedEventArgs e)
         {
-            ViewGameSettings.OceanHeight = (int)canvas.Height / (_spriteHeight + _padding * 2);
-            ViewGameSettings.OceanWidth = (int)canvas.Width / (_spriteWidth + _padding * 2);
+            ScaleCanvas();
 
             _controller = new OceanController(this);
 
@@ -113,6 +113,12 @@ namespace OceanGUI
 
             startButton.IsEnabled = false;
             settingsButton.IsEnabled = false;
+        }
+
+        private void ScaleCanvas()
+        {
+            canvas.Height = (_spriteHeight + _padding) * ViewGameSettings.OceanHeight;
+            canvas.Width = (_spriteWidth + _padding) * ViewGameSettings.OceanWidth;
         }
 
         private void OnKeyUp(object sender, KeyEventArgs e)
@@ -140,13 +146,30 @@ namespace OceanGUI
         public void Display(in Cell[,] field, in GameStats stats)
         {
             canvas.Children.Clear();
+            DrawingVisual drawingVisual = new DrawingVisual();
+            DrawingContext drawingContext = drawingVisual.RenderOpen();
+
+            var group = new DrawingGroup();
+
             for (int i = 0; i < ViewGameSettings.OceanHeight; i++)
             {
                 for (int j = 0; j < ViewGameSettings.OceanWidth; j++)
                 {
-                    DrawCell(field[i, j], j, i);
+                    DrawCell(field[i, j], j, i, group);
                 }
             }
+
+            drawingContext.DrawDrawing(group);
+            drawingContext.Close();
+
+            var bmp = new RenderTargetBitmap((int)canvas.Width, (int)canvas.Height, 96, 96, PixelFormats.Pbgra32);
+            bmp.Render(drawingVisual);
+
+            var img = new Image();
+            img.Source = bmp;
+
+            canvas.Children.Add(img);
+
             statsText.Text =
                 $"Map Stats\n" +
                 $"Cycle:     {stats.cycle}\n" +
@@ -160,7 +183,7 @@ namespace OceanGUI
             MessageBox.Show(message);
         }
 
-        private void DrawCell(Cell cell, int x, int y)
+        private void DrawCell(Cell cell, int x, int y, DrawingGroup group)
         {
             ImageBrush img;
 
@@ -179,18 +202,19 @@ namespace OceanGUI
                     return;
             }
 
-            var sprite = new Rectangle
-            {
-                Tag = "cell",
-                Height = _spriteHeight,
-                Width = _spriteWidth,
-                Fill = img
-            }; 
+            var rect = new Rect
+            (
+                x * (_spriteWidth + _padding),
+                y * (_spriteHeight + _padding),
+                _spriteWidth,
+                _spriteHeight
+            );
 
-            Canvas.SetLeft(sprite, x * (_spriteWidth + _padding));
-            Canvas.SetTop(sprite, y * (_spriteHeight + _padding));
+            var g = new RectangleGeometry(rect);
 
-            canvas.Children.Add(sprite);
+            var drawing = new GeometryDrawing(img, null, g);
+
+            group.Children.Add(drawing);
         }
     }
 }

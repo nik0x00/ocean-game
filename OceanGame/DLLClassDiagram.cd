@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="OceanGame.Cell">
+    <Position X="10.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAABAAAAAAAAAAEAA=</HashCode>
+      <FileName>Cell\Cell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OceanGame.DirectionTools">
+    <Position X="7.25" Y="12.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAABAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Directory\DirectionTools.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OceanGame.GameRandom">
+    <Position X="10.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Game\GameRandom.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OceanGame.GameSettings">
+    <Position X="3" Y="8.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAIAEBAAAAEAAEAAABBACAQAJQAAAAAAgA=</HashCode>
+      <FileName>Settings\GameSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OceanGame.GameSettingsEditor">
+    <Position X="0.5" Y="12.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAACAAAAA=</HashCode>
+      <FileName>Settings\GameSettingsEditor.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_menu" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="OceanGame.Globals">
+    <Position X="13" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAwAAACAAAAA=</HashCode>
+      <FileName>Game\Globals.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="CellSingle" />
+      <Field Name="gameUIDGenerator" />
+      <Field Name="GRandom" />
+      <Field Name="ObstacleSingle" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="OceanGame.MenuEndEventArgs">
+    <Position X="0.5" Y="10.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Settings\ISettingsMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OceanGame.Obstacle">
+    <Position X="12.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cell\Obstacle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OceanGame.Ocean">
+    <Position X="5.5" Y="2" Width="2" />
+    <TypeIdentifier>
+      <HashCode>QgEBAAAACgAIAAABggAACAUQAAAAAAAAIAAAAAAAAAE=</HashCode>
+      <FileName>Ocean\Ocean.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_random" />
+      <Field Name="_settings" />
+      <Field Name="_stats" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="_cells" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="OceanGame.OceanController">
+    <Position X="3" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAQAAAQAAAAEAAAAECAAIAAAQAA=</HashCode>
+      <FileName>Ocean\OceanController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_ocean" />
+      <Field Name="_oceanRunner" />
+      <Field Name="_view" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="OceanGame.OceanDataChangedEventArgs">
+    <Position X="7.75" Y="6.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>Ocean\Ocean.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="Field" />
+      <Field Name="Stats" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="OceanGame.OceanRunner">
+    <Position X="3" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAIAAAAQCAAAAAAAQAgAIIAAAAAIBCAA=</HashCode>
+      <FileName>Ocean\OceanRunner.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_ocean" />
+      <Field Name="_oceanView" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="OceanGame.Predator">
+    <Position X="10.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAgAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cell\Predator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OceanGame.Prey">
+    <Position X="10" Y="7.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAQggAAAAAAAAAAABAAAAAAAAAAQAA=</HashCode>
+      <FileName>Cell\Prey.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_settings" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="OceanGame.SettingsSaveEventArgs">
+    <Position X="6.75" Y="9.75" Width="1.5" />
+    <AssociationLine Name="settings" Type="OceanGame.GameSettings" FixedToPoint="true">
+      <Path>
+        <Point X="6.75" Y="10.312" />
+        <Point X="5.677" Y="10.312" Type="JumpStart" />
+        <Point X="5.51" Y="10.312" Type="JumpEnd" />
+        <Point X="5.25" Y="10.312" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.218" Y="0.036" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Settings\GameSettingsEditor.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="settings" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="OceanGame.UIDGenerator">
+    <Position X="13" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Game\UIDGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Random" Collapsed="true">
+    <Position X="13" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Struct Name="OceanGame.GameStats">
+    <Position X="5.75" Y="6.25" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAQAgAAAAAAAAAAAAAAAAAAAgIIAAAA=</HashCode>
+      <FileName>Game\GameStats.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="OceanGame.IOceanView">
+    <Position X="0.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAIQAAAEAAAAAAAAAEBAAAAAA=</HashCode>
+      <FileName>Ocean\IOceanView.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ViewGameSettings" />
+    </ShowAsAssociation>
+  </Interface>
+  <Interface Name="OceanGame.IOceanCell">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAABAAAAAgAIAAAAAAAAAAEQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Ocean\IOceanCell.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="OceanGame.ISettingsMenu">
+    <Position X="3" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAIAAAA=</HashCode>
+      <FileName>Settings\ISettingsMenu.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="OceanGame.Direction">
+    <Position X="5.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAIAAAACACAAAAAAAA=</HashCode>
+      <FileName>Directory\DirectionEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

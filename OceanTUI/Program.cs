@@ -54,7 +54,18 @@ namespace OceanTUI
             }
 
             Console.Clear();
-            Console.SetWindowSize(settings.OceanWidth + 10, settings.OceanHeight + 16);
+
+            try
+            {
+                Console.SetBufferSize(settings.OceanWidth + 10, settings.OceanHeight + 16);
+                Console.SetWindowSize(settings.OceanWidth + 10, settings.OceanHeight + 16);
+            } catch (ArgumentOutOfRangeException e)
+            {
+                Console.WriteLine("Too large field");
+                Console.ReadKey();
+                return;
+            }
+
 
             var oceanView = new OceanTextView(settings);
             var oceanController = new OceanController(oceanView);

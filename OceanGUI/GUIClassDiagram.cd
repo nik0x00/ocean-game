@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="OceanGUI.ImageLoader">
+    <Position X="1.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ImageLoader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OceanGUI.MainWindow">
+    <Position X="6.75" Y="3" Width="1.5" />
+    <AssociationLine Name="_predatorImg" Type="System.Windows.Media.ImageBrush">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.027" Y="0.341" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_preyImg" Type="System.Windows.Media.ImageBrush">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.12" Y="0.539" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_obstacleImg" Type="System.Windows.Media.ImageBrush">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.058" Y="0.102" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAgABAAAACAAAEAAIQAYUAgAEAFAACAIAAEBEAIgAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_controller" />
+      <Field Name="_oceanTimer" />
+      <Field Name="_predatorImg" />
+      <Field Name="_preyImg" />
+      <Field Name="_obstacleImg" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="System.Windows.Window" Collapsed="true">
+    <Position X="6.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="OceanGUI.NumericBox">
+    <Position X="12.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACgAAAAAAAAAAAAAiAAAAAAgACAACAA=</HashCode>
+      <FileName>NumericBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Windows.Controls.TextBox" Collapsed="true">
+    <Position X="9" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="OceanGUI.SettingsEditWindow">
+    <Position X="1.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAgAAAAAAAAAAAgAAAAAAAAIAABACAAAAAAAIAAAA=</HashCode>
+      <FileName>SettingsEditWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_settings" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="OceanGame.GameSettings">
+    <Position X="3.5" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="OceanGame.OceanController">
+    <Position X="10" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="System.Windows.Threading.DispatcherTimer" Collapsed="true">
+    <Position X="11.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="System.Windows.Media.ImageBrush" Collapsed="true">
+    <Position X="4.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Interface Name="OceanGame.IOceanView">
+    <Position X="8.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="OceanGame.ISettingsMenu">
+    <Position X="1.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

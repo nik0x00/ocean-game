@@ -37,6 +37,7 @@
                     ocean.OnPreyConsumed();
                     return false;
                 }
+
                 if (cell.Image == GameSettings.VoidImage)
                 {
                     if (timeToReproduce <= 0)
