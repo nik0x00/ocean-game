@@ -57,7 +57,6 @@ namespace OceanTUI
 
             try
             {
-                Console.SetBufferSize(settings.OceanWidth + 10, settings.OceanHeight + 16);
                 Console.SetWindowSize(settings.OceanWidth + 10, settings.OceanHeight + 16);
             } catch (ArgumentOutOfRangeException e)
             {
