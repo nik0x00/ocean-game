@@ -41,11 +41,13 @@
             />
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="2*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <Button Click="StartGame" Grid.Row="0" Margin="15,15,15,15" Name="startButton">Start</Button>
-                <Button Click="StartSettings" Grid.Row="1" Margin="15,15,15,15" Name="settingsButton">Settings</Button>
+                <Button Click="StartGame" Grid.Row="0" Margin="15,12,15,12" Name="startButton">Start</Button>
+                <Button Click="StartSettings" Grid.Row="1" Margin="15,12,15,12" Name="settingsButton">Settings</Button>
+                <CheckBox x:Name="heatMapEnable" Grid.Row="2" VerticalAlignment="Bottom" Margin="15,0,15,8">Enable heatmap</CheckBox>
             </Grid>
 
         </Grid>

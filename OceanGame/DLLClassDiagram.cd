@@ -3,7 +3,7 @@
   <Class Name="OceanGame.Cell">
     <Position X="10.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAABAAAAAAAAAAEAA=</HashCode>
+      <HashCode>AAAAAAAAAACAAAAAAgAAAAAAAAAAABAABAAAAAAAEAA=</HashCode>
       <FileName>Cell\Cell.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -24,7 +24,7 @@
   <Class Name="OceanGame.GameSettings">
     <Position X="3" Y="8.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAIAEBAAAAEAAEAAABBACAQAJQAAAAAAgA=</HashCode>
+      <HashCode>AAACAAAAAAAIAEBAAABEAAEAAABBACAQAJQAAAAAAgA=</HashCode>
       <FileName>Settings\GameSettings.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -41,13 +41,12 @@
   <Class Name="OceanGame.Globals">
     <Position X="13.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAwAAACAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAwAAAAAAAAA=</HashCode>
       <FileName>Game\Globals.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="GRandom" />
       <Field Name="gameUIDGenerator" />
-      <Field Name="CellSingle" />
       <Field Name="ObstacleSingle" />
     </ShowAsAssociation>
   </Class>

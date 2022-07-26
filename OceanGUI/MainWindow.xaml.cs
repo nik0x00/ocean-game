@@ -185,7 +185,16 @@ namespace OceanGUI
 
         private void DrawCell(Cell cell, int x, int y, DrawingGroup group)
         {
-            ImageBrush img;
+            ImageBrush img = null;
+            GeometryDrawing drawing;
+
+            var rect = new Rect
+            (
+                x * (_spriteWidth + _padding),
+                y * (_spriteHeight + _padding),
+                _spriteWidth,
+                _spriteHeight
+            );
 
             switch (cell.Image)
             {
@@ -199,20 +208,30 @@ namespace OceanGUI
                     img = _preyImg;
                     break;
                 default:
-                    return;
+                    break;
             }
-
-            var rect = new Rect
-            (
-                x * (_spriteWidth + _padding),
-                y * (_spriteHeight + _padding),
-                _spriteWidth,
-                _spriteHeight
-            );
 
             var g = new RectangleGeometry(rect);
 
-            var drawing = new GeometryDrawing(img, null, g);
+            drawing = new GeometryDrawing(img, null, g);
+
+            if (heatMapEnable.IsChecked??false && cell.Heat > 0)
+            {
+                const int upperAlpha = 200;
+                const int lowerAlpha = 40;
+                const int alphaPerHeat = (upperAlpha - lowerAlpha) / GameSettings.HeatLength;
+                const int mediumAlpha = lowerAlpha + (upperAlpha - lowerAlpha) / 2;
+
+                var rawAplha = lowerAlpha + cell.Heat * alphaPerHeat;
+
+                var diff = rawAplha - mediumAlpha;
+
+                byte a = (byte)(rawAplha + diff * 0.2);
+
+                var brush = new SolidColorBrush(Color.FromArgb(a, 255, 0, 0));
+                var drawingHeat = new GeometryDrawing(brush, null, g);
+                group.Children.Add(drawingHeat);
+            }
 
             group.Children.Add(drawing);
         }

@@ -10,7 +10,6 @@ namespace OceanGame
     {
         public static Random GRandom = new Random();
         public static UIDGenerator gameUIDGenerator = new UIDGenerator();
-        public static Cell CellSingle = new Cell();
         public static Obstacle ObstacleSingle = new Obstacle();
     }
 }

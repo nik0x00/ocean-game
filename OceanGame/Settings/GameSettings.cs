@@ -8,6 +8,7 @@ namespace OceanGame
         public const char VoidImage = ' ';
         public const char PreyImage = '*';
         public const char PredatorImage = '@';
+        public const int HeatLength = 7;
 
         public double PredatorRatio = 0.15;
         public double ObstacleRatio = 0.22;

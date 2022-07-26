@@ -38,7 +38,7 @@ namespace OceanGame
                     _stats.prey++;
                     return new Prey(_settings);
                 default:
-                    return Globals.CellSingle;
+                    return new Cell();
             }
         }
 

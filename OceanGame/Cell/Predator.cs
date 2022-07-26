@@ -17,9 +17,14 @@
         {
             if (timeToFeed <= 0)
             {
-                ocean.TrySetCell(x, y, Globals.CellSingle);
+                ocean.TrySetCell(x, y, new Cell());
                 ocean.OnPredatorDied();
                 return;
+            }
+
+            if (Heat > 0)
+            {
+                Heat--;
             }
 
             DirectionTools.DirectionRandomIterate((int nx, int ny) =>
@@ -32,7 +37,7 @@
                 if (cell.Image == GameSettings.PreyImage)
                 {
                     timeToFeed = _settings.PredatorTimeToFeed;
-                    cell = Globals.CellSingle;
+                    cell = new Cell();
                     ocean.TrySetCell(nx, ny, cell);
                     ocean.OnPreyConsumed();
                     return false;
@@ -43,12 +48,16 @@
                     if (timeToReproduce <= 0)
                     {
                         ResetReproduce();
-                        ocean.TrySetCell(nx, ny, new Predator(_settings));
+                        var predator = new Predator(_settings);
+                        predator.HeatUp();
+                        ocean.TrySetCell(nx, ny, predator);
                         ocean.OnPredatorReproduced();
                     }
                     else
                     {
-                        ocean.TrySetCell(x, y, Globals.CellSingle);
+                        cell.HeatUp();
+                        HeatUp();
+                        ocean.TrySetCell(x, y, cell);
                         ocean.TrySetCell(nx, ny, this);
                     }
                     return false;
